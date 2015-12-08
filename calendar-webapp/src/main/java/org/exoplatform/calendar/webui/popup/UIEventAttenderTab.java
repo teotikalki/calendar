@@ -125,11 +125,11 @@ public class UIEventAttenderTab extends UIFormInputWithActions {
     User u = CalendarUtils.getOrganizationService().getUserHandler().findUserByName(username);
     if (u == null) return null;
     String fullName = u.getDisplayName();
-    if(fullName == null) fullName = u.getFirstName();
-    if (u.getLastName() != null && fullName != null) {
-      fullName = new StringBuilder().append(fullName).append(" ").append(u.getLastName()).toString();
+    if (fullName == null) {
+      if (u.getFirstName() != null && u.getLastName() != null) {
+        fullName = new StringBuilder().append(u.getFirstName()).append(" ").append(u.getLastName()).toString();
+      } else fullName = u.getUserName();
     }
-    if (fullName == null) fullName = u.getUserName();
     return fullName;
   }
 
