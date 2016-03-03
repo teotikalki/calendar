@@ -47,8 +47,6 @@ import org.exoplatform.webui.core.lifecycle.UIApplicationLifecycle;
 import org.exoplatform.ws.frameworks.cometd.ContinuationService;
 import org.mortbay.cometd.continuation.EXoContinuationBayeux;
 
-import javax.servlet.http.HttpServletRequest;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
