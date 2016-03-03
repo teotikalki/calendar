@@ -1514,7 +1514,7 @@ public class Utils {
         {
           tz = TimeZone.getTimeZone(ID);
           Map<String, TimeZone> tzs = new HashMap<String, TimeZone>(TIME_ZONES);
-          TIME_ZONES.put(ID, tz);
+          tzs.put(ID, tz);
           TIME_ZONES = tzs;
         }
       }
