@@ -1201,7 +1201,7 @@ public class UIEventForm extends UIFormTabPane implements UIPopupComponent, UISe
 
 
       _df = new SimpleDateFormat(calendarSetting.getDateFormat() + " " + calendarSetting.getTimeFormat());
-      _df.setTimeZone(TimeZone.getTimeZone(calendarSetting.getTimeZone()));
+      _df.setTimeZone(Utils.getTimeZone(calendarSetting.getTimeZone()));
 
       org.exoplatform.services.mail.Message message = new org.exoplatform.services.mail.Message();
       message.setSubject(buildMailSubject(event, _df, res));
@@ -1596,7 +1596,7 @@ public class UIEventForm extends UIFormTabPane implements UIPopupComponent, UISe
         calendarEvent.setRepeatByDay(repeatEvent.getRepeatByDay());
         calendarEvent.setRepeatByMonthDay(repeatEvent.getRepeatByMonthDay());
 
-        TimeZone tz = TimeZone.getTimeZone(calSetting.getTimeZone());
+        TimeZone tz = Utils.getTimeZone(calSetting.getTimeZone());
         Utils.updateOriginDate(calendarEvent, tz);
         Utils.adaptRepeatRule(calendarEvent, tz, CalendarService.PERSISTED_TIMEZONE);
       }

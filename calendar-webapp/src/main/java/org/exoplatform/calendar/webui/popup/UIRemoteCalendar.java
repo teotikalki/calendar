@@ -202,7 +202,7 @@ public class UIRemoteCalendar extends UIForm implements UIPopupComponent {
     WebuiRequestContext context = RequestContext.getCurrentInstance() ;
     Locale locale = context.getParentAppRequestContext().getLocale() ;
     DateFormat df = new SimpleDateFormat(calSettings.getDateFormat() + " " + calSettings.getTimeFormat(), locale) ;
-    df.setTimeZone(TimeZone.getTimeZone(calSettings.getTimeZone()));
+    df.setTimeZone(Utils.getTimeZone(calSettings.getTimeZone()));
     setLastUpdated(df.format(remoteCalendar.getLastUpdated().getTime()));
   }
   

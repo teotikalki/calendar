@@ -259,7 +259,7 @@ public class CalendarSetting implements Serializable {
    * @return calendar object
    */
   public Calendar createCalendar(long time) {
-    Calendar c = GregorianCalendar.getInstance(TimeZone.getTimeZone(timeZone));
+    Calendar c = GregorianCalendar.getInstance(Utils.getTimeZone(timeZone));
     c.setFirstDayOfWeek(Integer.parseInt(weekStartOn));
     c.setTimeInMillis(time);
     c.setMinimalDaysInFirstWeek(4);

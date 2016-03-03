@@ -488,7 +488,7 @@ public class ICalendarImportExport implements CalendarImportExport {
     Map<String, List<CalendarEvent>> exceptionOccurrences = new HashMap<String, List<CalendarEvent>>();
 
     SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-    format.setTimeZone(TimeZone.getTimeZone("GMT"));
+    format.setTimeZone(Utils.getTimeZone("GMT"));
     int calType = storage_.getTypeOfCalendar(username, calendarId);
 
     for (Object obj : componentList) {

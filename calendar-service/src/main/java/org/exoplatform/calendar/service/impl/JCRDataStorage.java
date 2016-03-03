@@ -2695,7 +2695,7 @@ public class JCRDataStorage implements DataStorage {
     }
 
     // java.util.Calendar tempCalendar = Utils.getInstanceTempCalendar();
-    java.util.Calendar tempCalendar = java.util.Calendar.getInstance(TimeZone.getTimeZone(timezone));
+    java.util.Calendar tempCalendar = java.util.Calendar.getInstance(Utils.getTimeZone(timezone));
 
     List<CalendarEvent> originalRecurEvents = getHighLightOriginalRecurrenceEvents(username,
                                                                                    eventQuery.getFromDate(),
@@ -2768,7 +2768,7 @@ public class JCRDataStorage implements DataStorage {
         .get(java.util.Calendar.DAY_OF_YEAR)) {
       toDayOfYear = toDayOfYear + daysOfYear;
     }
-    java.util.Calendar tempCalendar = java.util.Calendar.getInstance(TimeZone.getTimeZone(timezone));
+    java.util.Calendar tempCalendar = java.util.Calendar.getInstance(Utils.getTimeZone(timezone));
 
     List<CalendarEvent> originalRecurEvents = searchHighLightOriginalRecurrenceEventsSQL(username,
         eventQuery.getFromDate(), eventQuery.getToDate(), eventQuery, privateCalendars, publicCalendars);
@@ -4607,7 +4607,7 @@ public class JCRDataStorage implements DataStorage {
       return null;
     }
 
-    TimeZone userTimeZone = TimeZone.getTimeZone(timezone);
+    TimeZone userTimeZone = Utils.getTimeZone(timezone);
     SimpleDateFormat format = new SimpleDateFormat(Utils.DATE_FORMAT_RECUR_ID);
     format.setTimeZone(userTimeZone);
 
@@ -4621,7 +4621,7 @@ public class JCRDataStorage implements DataStorage {
       return null;
 
     DateTime ical4jEventFrom = new DateTime(recurEvent.getFromDateTime());//the date time of the first occurrence of the series
-    net.fortuna.ical4j.model.TimeZone tz = Utils.getICalTimeZone(TimeZone.getTimeZone(timezone));
+    net.fortuna.ical4j.model.TimeZone tz = Utils.getICalTimeZone(Utils.getTimeZone(timezone));
     ical4jEventFrom.setTimeZone(tz);
 
     Utils.adaptRepeatRule(recur, recurEvent.getFromDateTime(), CalendarService.PERSISTED_TIMEZONE, userTimeZone);
@@ -4738,7 +4738,7 @@ public class JCRDataStorage implements DataStorage {
 
       vevent.getProperties().add(new RRule(recur));
       java.util.Calendar calendar = new GregorianCalendar(2011, 7, 1);
-      calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+      calendar.setTimeZone(Utils.getTimeZone("GMT"));
       calendar.set(java.util.Calendar.YEAR, calendar.getMinimum(java.util.Calendar.YEAR));
       DateTime ical4jFrom = new DateTime(calendar.getTime());
       calendar.set(java.util.Calendar.YEAR, calendar.getMaximum(java.util.Calendar.YEAR));
@@ -6104,7 +6104,7 @@ public class JCRDataStorage implements DataStorage {
       return null;
     }
 
-    TimeZone userTimeZone = TimeZone.getTimeZone(timezone);
+    TimeZone userTimeZone = Utils.getTimeZone(timezone);
     SimpleDateFormat format = new SimpleDateFormat(Utils.DATE_FORMAT_RECUR_ID);
     format.setTimeZone(userTimeZone);
 
@@ -6125,7 +6125,7 @@ public class JCRDataStorage implements DataStorage {
     DateTime ical4jEventFrom = new DateTime(recurEvent.getFromDateTime());//the date time of the first occurrence of the series
     net.fortuna.ical4j.model.TimeZone tz = null;
     try {
-      tz = Utils.getICalTimeZone(TimeZone.getTimeZone(timezone));
+      tz = Utils.getICalTimeZone(Utils.getTimeZone(timezone));
     } catch (ParseException e) {
       if (log.isDebugEnabled()) log.debug(e);
     }

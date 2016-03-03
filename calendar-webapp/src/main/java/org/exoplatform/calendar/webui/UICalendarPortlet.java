@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Author : Nguyen Quang Hung
@@ -100,7 +101,7 @@ public class UICalendarPortlet extends UIPortletApplication {
   }
 
   public String getSettingTimeZone() throws Exception {
-    TimeZone tz = TimeZone.getTimeZone(getCalendarSetting().getTimeZone());
+    TimeZone tz = Utils.getTimeZone(getCalendarSetting().getTimeZone());
     //get time zone offset in a specified date to take day light saving into account
     long timezoneOffset = tz.getOffset(Calendar.getInstance().getTimeInMillis());
     return String.valueOf(timezoneOffset/1000/60) ;
@@ -280,7 +281,7 @@ public class UICalendarPortlet extends UIPortletApplication {
     if(recurId != null && !recurId.isEmpty()) {
       CalendarSetting calSetting = calService.getCalendarSetting(username);
       String timezoneId = calSetting.getTimeZone();
-      TimeZone timezone = TimeZone.getTimeZone(timezoneId);
+      TimeZone timezone = Utils.getTimeZone(timezoneId);
       CalendarEvent orgEvent = calService.getEventById(eventId); // the repetitive event of which we need to find the occurrence
       if(orgEvent != null) {
         SimpleDateFormat sdf = new SimpleDateFormat(Utils.DATE_FORMAT_RECUR_ID);

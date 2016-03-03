@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -454,6 +455,11 @@ public class Utils {
 
   public static final String ERROR_UN_SHARE = "errorUnShare";
 
+  /**
+   * registered time zones.
+   */
+  private static volatile Map<String, TimeZone> TIME_ZONES = new HashMap<String, TimeZone>();
+
   //Cache
   private static final String CALENDAR_DST_CACHE_REGION = "calendar.DaylightSavingTime";
   
@@ -516,7 +522,7 @@ public class Utils {
    */
   public static GregorianCalendar getInstanceTempCalendar() {
     GregorianCalendar calendar = new GregorianCalendar();
-    calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+    calendar.setTimeZone(Utils.getTimeZone("GMT"));
     return calendar;
   }
 
@@ -649,7 +655,7 @@ public class Utils {
   }
 
   public static java.util.Calendar getGreenwichMeanTime() {
-    java.util.Calendar calendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("GMT"));
+    java.util.Calendar calendar = GregorianCalendar.getInstance(Utils.getTimeZone("GMT"));
     calendar.setLenient(false);
     int gmtoffset = calendar.get(java.util.Calendar.DST_OFFSET) + calendar.get(java.util.Calendar.ZONE_OFFSET);
     calendar.setTimeInMillis(System.currentTimeMillis() - gmtoffset);
@@ -1483,6 +1489,37 @@ public class Utils {
       attachment.setWorkspace(attchmentNode.getSession().getWorkspace().getName());
     }
     return attachment;
+  }
+
+  /**
+   * This method is similar to {@link TimeZone#getTimeZone(String)} with less contention
+   */
+  public static TimeZone getTimeZone(String ID)
+  {
+    if (ID == null)
+    {
+      throw new IllegalArgumentException("ID of the timezone cannot be null");
+    }
+    if (ID.length() == 0)
+    {
+      throw new IllegalArgumentException("ID of the timezone cannot be empty");
+    }
+    TimeZone tz = TIME_ZONES.get(ID);
+    if (tz == null)
+    {
+      synchronized (TimeZone.class)
+      {
+        tz = TIME_ZONES.get(ID);
+        if (tz == null)
+        {
+          tz = TimeZone.getTimeZone(ID);
+          Map<String, TimeZone> tzs = new HashMap<String, TimeZone>(TIME_ZONES);
+          TIME_ZONES.put(ID, tz);
+          TIME_ZONES = tzs;
+        }
+      }
+    }
+    return tz;
   }
 
 }

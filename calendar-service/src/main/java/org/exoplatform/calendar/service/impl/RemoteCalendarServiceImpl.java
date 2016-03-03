@@ -607,7 +607,7 @@ public class RemoteCalendarServiceImpl implements RemoteCalendarService {
     Map<String, VAlarm> vAlarmData = new HashMap<String, VAlarm>();
 
     SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-    format.setTimeZone(TimeZone.getTimeZone("GMT"));
+    format.setTimeZone(Utils.getTimeZone("GMT"));
 
     CalendarEvent original = null;
     List<CalendarEvent> exceptions = new ArrayList<CalendarEvent>();

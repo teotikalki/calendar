@@ -37,7 +37,7 @@ import org.quartz.JobDetail;
 
 public interface CalendarService {
 
-  public static final TimeZone PERSISTED_TIMEZONE = TimeZone.getTimeZone("GMT");
+  public static final TimeZone PERSISTED_TIMEZONE = Utils.getTimeZone("GMT");
 
   final public static String ICALENDAR   = "ICalendar(.ics)";
 

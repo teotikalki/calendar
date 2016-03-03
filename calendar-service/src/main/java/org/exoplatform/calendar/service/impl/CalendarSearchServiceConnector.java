@@ -236,7 +236,7 @@ public class CalendarSearchServiceConnector extends SearchServiceConnector {
         if(detail.length() > 0) detailValue = detail.toString();
         long relevancy = buildScore(iter);
         long date = buildDate(iter);
-        TimeZone userTimezone = TimeZone.getTimeZone(calSeting.getTimeZone());
+        TimeZone userTimezone = Utils.getTimeZone(calSeting.getTimeZone());
         CalendarSearchResult result = new CalendarSearchResult(url, title, excerpt, detailValue, imageUrl, date, relevancy);
         result.setDataType(dataType);
         result.setTimeZoneName(calSeting.getTimeZone());
@@ -356,7 +356,7 @@ public class CalendarSearchServiceConnector extends SearchServiceConnector {
 
   private String buildDetail(Object iter, String timeZone) throws RepositoryException{
     SimpleDateFormat df = new SimpleDateFormat(Utils.DATE_TIME_FORMAT) ;
-    df.setTimeZone(TimeZone.getTimeZone(timeZone));
+    df.setTimeZone(Utils.getTimeZone(timeZone));
     StringBuffer detail = new StringBuffer();
     if(iter instanceof Row){
       Row row = (Row) iter;

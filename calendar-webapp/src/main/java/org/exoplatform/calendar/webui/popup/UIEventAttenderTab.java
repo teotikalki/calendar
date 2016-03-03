@@ -29,6 +29,7 @@ import java.util.TimeZone;
 import org.exoplatform.calendar.CalendarUtils;
 import org.exoplatform.calendar.service.CalendarSetting;
 import org.exoplatform.calendar.service.EventQuery;
+import org.exoplatform.calendar.service.Utils;
 import org.exoplatform.services.organization.OrganizationService;
 import org.exoplatform.services.organization.User;
 import org.exoplatform.web.application.RequestContext;
@@ -209,7 +210,7 @@ public class UIEventAttenderTab extends UIFormInputWithActions {
 
   public String getUserTimeZone() throws Exception {
     String timeZone = CalendarUtils.getCalendarService().getCalendarSetting(CalendarUtils.getCurrentUser()).getTimeZone() ;
-    TimeZone tz = TimeZone.getTimeZone(timeZone) ;
+    TimeZone tz = Utils.getTimeZone(timeZone) ;
     int rawOffset = tz.getRawOffset()  ;
     // check if the time zone uses daylight saving time and the date selected is in daylight saving period
     if(tz.useDaylightTime() && !tz.inDaylightTime(calendar_.getTime())) {
