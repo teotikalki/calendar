@@ -24,6 +24,7 @@ import org.exoplatform.calendar.service.Utils;
 import org.exoplatform.calendar.webui.popup.UIEventForm;
 import org.exoplatform.calendar.webui.popup.UIPopupAction;
 import org.exoplatform.calendar.webui.popup.UIPopupContainer;
+import org.exoplatform.commons.utils.CommonsUtils;
 import org.exoplatform.container.PortalContainer;
 import org.exoplatform.portal.application.PortalRequestContext;
 import org.exoplatform.portal.application.RequestNavigationData;
@@ -99,7 +100,7 @@ public class UICalendarPortlet extends UIPortletApplication {
   }
 
   public String getSettingTimeZone() throws Exception {
-    TimeZone tz = Utils.getTimeZone(getCalendarSetting().getTimeZone());
+    TimeZone tz = CommonsUtils.getTimeZone(getCalendarSetting().getTimeZone());
     //get time zone offset in a specified date to take day light saving into account
     long timezoneOffset = tz.getOffset(Calendar.getInstance().getTimeInMillis());
     return String.valueOf(timezoneOffset/1000/60) ;
@@ -279,7 +280,7 @@ public class UICalendarPortlet extends UIPortletApplication {
     if(recurId != null && !recurId.isEmpty()) {
       CalendarSetting calSetting = calService.getCalendarSetting(username);
       String timezoneId = calSetting.getTimeZone();
-      TimeZone timezone = Utils.getTimeZone(timezoneId);
+      TimeZone timezone = CommonsUtils.getTimeZone(timezoneId);
       CalendarEvent orgEvent = calService.getEventById(eventId); // the repetitive event of which we need to find the occurrence
       if(orgEvent != null) {
         SimpleDateFormat sdf = new SimpleDateFormat(Utils.DATE_FORMAT_RECUR_ID);

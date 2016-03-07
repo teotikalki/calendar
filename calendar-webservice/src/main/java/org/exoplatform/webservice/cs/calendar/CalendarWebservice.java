@@ -57,6 +57,7 @@ import org.exoplatform.calendar.service.ExtendedCalendarService;
 import org.exoplatform.calendar.service.FeedData;
 import org.exoplatform.calendar.service.GroupCalendarData;
 import org.exoplatform.calendar.service.Utils;
+import org.exoplatform.commons.utils.CommonsUtils;
 import org.exoplatform.common.http.HTTPStatus;
 import org.exoplatform.container.ExoContainer;
 import org.exoplatform.container.ExoContainerContext;
@@ -529,7 +530,7 @@ public class CalendarWebservice implements ResourceContainer {
       String username = ConversationState.getCurrent().getIdentity().getUserId();
       CalendarSetting calSetting = calendarService.getCalendarSetting(username);
       SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd") ;
-      sf.setTimeZone(Utils.getTimeZone(calSetting.getTimeZone()));
+      sf.setTimeZone(CommonsUtils.getTimeZone(calSetting.getTimeZone()));
       Date currentDate = sf.parse(currentdatetime);
       java.util.Calendar fromCal = calSetting.createCalendar(currentDate);
       java.util.Calendar toCal = calSetting.createCalendar(currentDate);
@@ -543,7 +544,7 @@ public class CalendarWebservice implements ResourceContainer {
       eventQuery.setEventType(type);
       EventPageList data =  calendarService.searchEvent(username, eventQuery, null);
       String timezoneId = calSetting.getTimeZone();
-      TimeZone userTimezone = Utils.getTimeZone(timezoneId);
+      TimeZone userTimezone = CommonsUtils.getTimeZone(timezoneId);
       int timezoneOffset = userTimezone.getRawOffset() + userTimezone.getDSTSavings();
       if(data == null || data.getAll().isEmpty())
         return Response.status(HTTPStatus.NO_CONTENT).cacheControl(cc).build();
@@ -637,7 +638,7 @@ public class CalendarWebservice implements ResourceContainer {
     event.setPriority(cEvent.getPriority());
     event.setSummary(cEvent.getSummary());
     // evaluate timeoffset
-    TimeZone timeZone = Utils.getTimeZone(calSetting.getTimeZone());
+    TimeZone timeZone = CommonsUtils.getTimeZone(calSetting.getTimeZone());
     event.setStartDateTime(cEvent.getFromDateTime().getTime());
     event.setStartTimeOffset(timeZone.getOffset(cEvent.getFromDateTime().getTime()));
     event.setEndDateTime(cEvent.getToDateTime().getTime());
@@ -736,7 +737,7 @@ public class CalendarWebservice implements ResourceContainer {
       String username = ConversationState.getCurrent().getIdentity().getUserId();
       CalendarSetting calSetting = calendarService.getCalendarSetting(username);
       String timezoneId = calSetting.getTimeZone();
-      TimeZone timezone = Utils.getTimeZone(timezoneId);
+      TimeZone timezone = CommonsUtils.getTimeZone(timezoneId);
 
       CalendarEvent orgEvent = calendarService.getEventById(eventId); // the repetitive event of which we need to find the occurrence
 
