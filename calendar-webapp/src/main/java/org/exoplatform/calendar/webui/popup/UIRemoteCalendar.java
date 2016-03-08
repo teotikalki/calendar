@@ -33,7 +33,7 @@ import org.exoplatform.calendar.service.Utils;
 import org.exoplatform.calendar.webui.UICalendarPortlet;
 import org.exoplatform.calendar.webui.UICalendarWorkingContainer;
 import org.exoplatform.calendar.webui.UIFormColorPicker;
-import org.exoplatform.commons.utils.CommonsUtils;
+import org.exoplatform.commons.utils.DateUtils;
 import org.exoplatform.portal.application.PortalRequestContext;
 import org.exoplatform.portal.webui.util.Util;
 import org.exoplatform.services.log.ExoLogger;
@@ -202,7 +202,7 @@ public class UIRemoteCalendar extends UIForm implements UIPopupComponent {
     WebuiRequestContext context = RequestContext.getCurrentInstance() ;
     Locale locale = context.getParentAppRequestContext().getLocale() ;
     DateFormat df = new SimpleDateFormat(calSettings.getDateFormat() + " " + calSettings.getTimeFormat(), locale) ;
-    df.setTimeZone(CommonsUtils.getTimeZone(calSettings.getTimeZone()));
+    df.setTimeZone(DateUtils.getTimeZone(calSettings.getTimeZone()));
     setLastUpdated(df.format(remoteCalendar.getLastUpdated().getTime()));
   }
   

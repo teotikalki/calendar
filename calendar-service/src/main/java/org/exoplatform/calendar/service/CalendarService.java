@@ -30,7 +30,7 @@ import org.exoplatform.calendar.model.query.CalendarQuery;
 import org.exoplatform.calendar.service.impl.CalendarEventListener;
 import org.exoplatform.calendar.service.impl.CsvImportExport;
 import org.exoplatform.calendar.service.impl.NewMembershipListener;
-import org.exoplatform.commons.utils.CommonsUtils;
+import org.exoplatform.commons.utils.DateUtils;
 import org.exoplatform.commons.utils.ListAccess;
 import org.exoplatform.services.scheduler.JobSchedulerService;
 import org.exoplatform.services.scheduler.impl.JobSchedulerServiceImpl;
@@ -38,7 +38,7 @@ import org.quartz.JobDetail;
 
 public interface CalendarService {
 
-  public static final TimeZone PERSISTED_TIMEZONE = CommonsUtils.getTimeZone("GMT");
+  public static final TimeZone PERSISTED_TIMEZONE = DateUtils.getTimeZone("GMT");
 
   final public static String ICALENDAR   = "ICalendar(.ics)";
 
